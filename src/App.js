@@ -53,7 +53,7 @@ function App() {
       
       {/* Adding the BookList component */}
       {/* Display the BookList component & Passing the list of books (Array) as props to BookList component  */}
-      <BookList books={books} remove={removeBook}/>
+      <BookList books={books} removeBook={removeBook}/>
       {/* AddBookForm component is to allow users to input new books */}
       <AddBookForm addBook={addBook}/>
     </div>

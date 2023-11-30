@@ -16,7 +16,10 @@ function BookList(props){
             {/* React uses the key to efficiently update the DOM when the list changes. It helps React understand which items were added, removed, or re-ordered. */}
             {props.books.map((book,index) =>{
                 // books={books}, it means passing the array stored in the variable books as a property named books to the BookList component.
-                <li key={index}>{book}</li>
+                <li key={index}>\
+                {book}
+                <button onClick={() => props.removeBook(index)}> X </button>
+                </li>
             })}
         </ul>
     )

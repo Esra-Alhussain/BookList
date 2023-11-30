@@ -29,7 +29,8 @@ function App() {
     //update the books state by adding a new book to the existing array of books.
     setBooks([...books, newBook]);
   };
-  return (
+   
+   return (
     <div className="App">
       <h1>My Favourite Books</h1>
       <p>Welcome to my book list page!</p>
@@ -38,7 +39,7 @@ function App() {
       {/* Display the BookList component & Passing the list of books (Array) as props to BookList component  */}
       <BookList books={books}/>
       {/* AddBookForm component is to allow users to input new books */}
-      <AddBookForm/>
+      <AddBookForm addBook={addBook}/>
     </div>
   );
 }

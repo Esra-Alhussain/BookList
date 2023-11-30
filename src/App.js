@@ -10,7 +10,7 @@ function App() {
   // JSX code for the component
   return (
     <div className="App">
-      <h1>My Book List App</h1>
+      <h1>My Favourite Books</h1>
       <p>Welcome to my book list page!</p>
       {/* Adding the BookList component */}
       {/* Passing the list of books (Array) as props to BookList component  */}

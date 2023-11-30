@@ -30,6 +30,22 @@ function App() {
     setBooks([...books, newBook]);
   };
    
+  //the removeBook function ensures that when a book is removed, it creates a new array with that book 
+  //removed and then updates the state with the new array.
+   
+   // Function to remove a book from the list
+   const removeBook = (index) => {
+    //1: Create a copy array of the existing array of books
+    // The spread operator (...) is used to create a shallow copy of the array
+    const updatedBooks =[...books];
+    // 2: Use the splice method to remove the book at the specified index
+    //splice method is used to modify the array. It takes two arguments:
+    //the index at which to start changing the array and the number of elements to remove.
+    updatedBooks.splice(index, 1);
+    //3: Update the state with the modified array of books
+    setBooks(updatedBooks);
+   };
+
    return (
     <div className="App">
       <h1>My Favourite Books</h1>
@@ -37,7 +53,7 @@ function App() {
       
       {/* Adding the BookList component */}
       {/* Display the BookList component & Passing the list of books (Array) as props to BookList component  */}
-      <BookList books={books}/>
+      <BookList books={books} remove={removeBook}/>
       {/* AddBookForm component is to allow users to input new books */}
       <AddBookForm addBook={addBook}/>
     </div>

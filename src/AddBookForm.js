@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
-function AddBookForm(addBook){
+//{ addBook } is using object destructuring to directly extract the addBook prop 
+//from the props object. It's equivalent to writing
+// const { addBook } = props;
+function AddBookForm({addBook}){
     // Step 4: Introduce state to manage user input
     //This state will be used to store the user's input for a new book
     //     1- Setting Up the State using useState hook

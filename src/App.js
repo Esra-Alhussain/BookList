@@ -3,6 +3,7 @@ import './App.css';
 // Importing React module
 import React from 'react';
 import BookList from './BookList';
+import AddBookForm from './AddBookForm'
 
 // Defining a functional component called App
 function App() {
@@ -12,9 +13,11 @@ function App() {
     <div className="App">
       <h1>My Favourite Books</h1>
       <p>Welcome to my book list page!</p>
+      
       {/* Adding the BookList component */}
       {/* Passing the list of books (Array) as props to BookList component  */}
       <BookList books={books}/>
+      <AddBookForm/>
     </div>
   );
 }

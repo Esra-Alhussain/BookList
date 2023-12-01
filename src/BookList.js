@@ -14,12 +14,12 @@ function BookList({ books, removeBook }){
             {/* key={index}>>  assigns the index of each book as its unique identifier. */}
             {/* The key provides a way for React to identify each element uniquely in the list. Without it, React might have to re-render the entire list when there's a change. */}
             {/* React uses the key to efficiently update the DOM when the list changes. It helps React understand which items were added, removed, or re-ordered. */}
-            {books.map((book,index) =>{
+            {books.map((book) =>{
                 return(
                 // books={books}, it means passing the array stored in the variable books as a property named books to the BookList component.
-                <li key={index}>
-                {book}
-                <button onClick={() => removeBook(index)}>X</button>
+                <li key={book.id}>
+                {book.title}
+                <button onClick={() => removeBook(book.id)}>X</button>
                 </li>
                 )
             })}

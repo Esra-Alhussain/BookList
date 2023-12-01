@@ -2,8 +2,7 @@
 // import './App.css';
 // Importing React module
 // useState hook is to make the list of books dynamic
-import React, { useState } from 'react';
-// import React from 'react';
+import React, { useState, useEffect } from 'react';
 import BookList from './BookList';
 import AddBookForm from './AddBookForm'
 
@@ -18,44 +17,71 @@ function App() {
 // [...] to set up an initial state when the component is first rendered.
 //setBooks is a function that you call with a new value to update the books state
 //by passing the new value as an argument 
+// initial state for books is an array of objects
   const [books, setBooks] = useState([
-        "Book A",
-        "Book B",
-        "Book C"
+    { id: 1, title: "Book A" },
+    { id: 2, title: "Book B" },
+    { id: 3, title: "Book C" },
    ]); // The books state is initialized with an array of pre-defined books
 
+   useEffect(() => {
+    // Fetch books from the API when the component mounts
+    fetch("https://6557a470bd4bcef8b613033f.mockapi.io/BookList")
+    .then((response) => response.json())
+    .then((data) => setBooks(data));
+   }, []);
    // addBook function is to update the current state of books with a new book
   const addBook = (newBook) => {
     //update the books state by adding a new book to the existing array of books.
-    setBooks([...books, newBook]);
-  };
+    fetch("https://6557a470bd4bcef8b613033f.mockapi.io/BookList",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body:JSON.stringify({ title:newBook}),
+    })
+      .then((response) => response.json())
+      .then((data => setBooks([...books, data])))
+    };
+    // setBooks([...books, newBook]);
    
   //the removeBook function ensures that when a book is removed, it creates a new array with that book 
   //removed and then updates the state with the new array.
    
    // Function to remove a book from the list
-   const removeBook = (index) => {
+   const removeBook = (id) => {
+    // Remove a book from the API and update the state
+    fetch(`https://6557a470bd4bcef8b613033f.mockapi.io/BookList/${id}`, {
+      method: "DELETE",
+    })
+      .then(() => setBooks(books.filter((book) => book.id !== id)))
+  
     //1: Create a copy array of the existing array of books
     // The spread operator (...) is used to create a shallow copy of the array
-    const updatedBooks =[...books];
-    // 2: Use the splice method to remove the book at the specified index
+    // const updatedBooks =[...books];
+    // 2: Use the filter method to remove the book at the specified id
     //splice method is used to modify the array. It takes two arguments:
     //the index at which to start changing the array and the number of elements to remove.
-    updatedBooks.splice(index, 1);
+    // updatedBooks = updatedBooks.filter((book) => book.id !== id);
     //3: Update the state with the modified array of books
-    setBooks(updatedBooks);
+    // setBooks(updatedBooks);
    };
 
+
+
+
    return (
-    <div className="App">
+    <div>
       <h1>My Favourite Books</h1>
       <p>Welcome to my book list page!</p>
-      
-      {/* Adding the BookList component */}
-      {/* Display the BookList component & Passing the list of books (Array) as props to BookList component  */}
-      <BookList books={books} removeBook={removeBook}/>
+      {/* Render the AddBookForm component and pass the addBook function as a prop */}
       {/* AddBookForm component is to allow users to input new books */}
       <AddBookForm addBook={addBook}/>
+      
+      {/* Adding the BookList component */}
+      {/* Render the BookList component and pass the books array and removeBook function as props */}
+      {/* Display the BookList component & Passing the list of books (Array) as props to BookList component  */}
+      <BookList books={books} removeBook={removeBook}/>
     </div>
   );
 }
